@@ -8,7 +8,8 @@ export const isAuthorized = catchAsyncError(async (req, res, next) => {
     // console.log("cookies--111");
     // console.log("cookies--222", req);
     // console.log("cookies--333", req.cookies);
-    const { token } = req.cookies;
+    // const { token } = req.cookies;
+    const token = req.headers.authorization?.split(" ")[1];
     if (!token) {
         return next(new ErrorHandler("User not authorized", 400));
     }
