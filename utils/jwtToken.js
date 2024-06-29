@@ -6,6 +6,11 @@ export const sendToken = (user, statusCode, res, message) => {
         ),
         httpOnly: true
     };
+    res.cookie('token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production', // use secure cookies in production
+        sameSite: 'None' // required for cookies to be sent in cross-site requests
+    });
     res.status(statusCode).cookie("token", token, options).json({
         success: true,
         user,
