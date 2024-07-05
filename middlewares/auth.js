@@ -8,12 +8,14 @@ export const isAuthorized = catchAsyncError(async (req, res, next) => {
     // console.log("cookies--111");
     // console.log("cookies--222", req);
     // console.log("cookies--333", req.cookies);
-    const authHeader = req.headers.authorization;
-    if (!authHeader) {
-        return next(new ErrorHandler("User not authorized", 401));
-    }
+    const authHeader = req.headers.cookie;
+    // console.log(req.headers.cookie);
+    // if (!authHeader) {
+    //     return next(new ErrorHandler("User not authorized!", 401));
+    // }
 
-    const token = authHeader.split(" ")[1];
+    const token = authHeader?.split("=")[1];
+    // console.log(token);
     if (!token) {
         return next(new ErrorHandler("User not authorized", 401));
     }
